@@ -35,3 +35,4 @@ template. The project also keeps the official `GD32A714X` target for convenience
 - `systick_config()` is enabled by default and provides `delay_1ms()`.
 - `led_spark()` is left as a 1 ms heartbeat hook called by `SysTick_Handler()`.
 - Add board-specific GPIO, UART, clock, and peripheral code under `driver/`.
+- 没有包含部分头文件，需在keil的run-time environment中进行配置
