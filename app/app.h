@@ -1,0 +1,12 @@
+/*!
+    \file    app.h
+    \brief   application interface
+*/
+
+#ifndef APP_H
+#define APP_H
+
+void app_init(void);
+void app_loop(void);
+
+#endif /* APP_H */

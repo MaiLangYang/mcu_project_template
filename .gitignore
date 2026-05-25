@@ -1,0 +1,16 @@
+mdk/Objects/*
+mdk/Listings/*
+!mdk/Objects/.gitkeep
+!mdk/Listings/.gitkeep
+*.uvguix.*
+*.bak
+*.dep
+*.d
+*.o
+*.axf
+*.hex
+*.map
+*.lst
+*.lnp
+*.htm
+*.sct
