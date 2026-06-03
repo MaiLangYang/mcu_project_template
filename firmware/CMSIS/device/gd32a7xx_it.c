@@ -33,8 +33,9 @@ OF SUCH DAMAGE.
 */
 
 #include "gd32a7xx_it.h"
+#include "bsp_adc_calib.h"
 #include "main.h"
-//#include "systick.h"
+#include "systick.h"
 
 /*!
     \brief      this function handles NMI exception
@@ -150,4 +151,9 @@ void SysTick_Handler(void)
 {
     led_spark();
     delay_decrement();
+}
+
+void ADC0_IRQHandler(void)
+{
+    bsp_adc_calib_irq_handler();
 }

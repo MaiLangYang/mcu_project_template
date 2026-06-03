@@ -56,5 +56,7 @@ void DebugMon_Handler(void);
 void PendSV_Handler(void);
 /* this function handles SysTick exception */
 void SysTick_Handler(void);
+/* this function handles ADC0 interrupt */
+void ADC0_IRQHandler(void);
 
 #endif /* GD32A7XX_IT_H */

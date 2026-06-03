@@ -32,14 +32,15 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 OF SUCH DAMAGE.
 */
 
+#include <stdio.h>
 #include "gd32a7xx.h"
-#ifdef GD32A711X_A712X
-//#include "gd32a712_evb.h"
-#else
-//#include "gd32a7x4_evb.h"
-#endif /* GD32A711X_A712X */
-//#include "systick.h"
+#include "bsp_adc_calib.h"
+#include "bsp_key.h"
+#include "bsp_led.h"
+#include "bsp_motor.h"
+#include "bsp_uart.h"
 #include "main.h"
+#include "oled.h"
 #include "systick.h"
 
 void cache_enable(void);
@@ -53,44 +54,40 @@ void cache_enable(void);
 
 int main(void)
 {
-    /************************************************************/
-    /* Enabling the parameter checking feature of the firmware  */
-    /* will reduce code execution efficiency. It is recommended */
-    /* that the parameter checking feature be used only during  */
-    /* the code development phase.                              */
-    /************************************************************/
-//#ifdef __FIRMWARE_VERSION_DEFINE
-//    uint32_t fw_ver = 0;
-//#endif
-//    cache_enable();
-//    /* configure systick */
-//    systick_config();
-//    /* initialize the LEDs, USART and key */
-//    gd_eval_led_init(LED1);
-//    gd_eval_led_init(LED2);
-//    gd_eval_key_init(KEY_1, KEY_MODE_GPIO);
-//    gd_eval_com_init(EVAL_COMA);
-//    gd_eval_led_on(LED1);
-//    gd_eval_led_on(LED2);
-//    /* print out the clock frequency of system, AHB, APB1 and APB2 */
-//    printf("\r\nCK_SYS is %d", rcu_clock_freq_get(CK_SYS));
-//    printf("\r\nCK_AHB is %d", rcu_clock_freq_get(CK_AHB));
-//    printf("\r\nCK_APB1 is %d", rcu_clock_freq_get(CK_APB1));
-//    printf("\r\nCK_APB2 is %d", rcu_clock_freq_get(CK_APB2));
-//#ifdef __FIRMWARE_VERSION_DEFINE
-//    fw_ver = gd32a7xx_firmware_version_get();
-//    /* print firmware version */
-//    printf("\r\nGD32A7xxx series firmware version: V%d.%d.%d", (uint8_t)(fw_ver >> 24), (uint8_t)(fw_ver >> 16), (uint8_t)(fw_ver >> 8));
-//#endif /* __FIRMWARE_VERSION_DEFINE */
+    cache_enable();
+    systick_config();
+
+    bsp_led_init();
+    bsp_key_init();
+    bsp_uart1_init(BSP_UART1_DEFAULT_BAUDRATE);
+    OLED_Init();
+    bsp_motor_init();
+    bsp_adc_calib_init();
+
+    printf("\r\nGD32A712AVT3 template start");
+    printf("\r\nCK_SYS  = %lu", (unsigned long)rcu_clock_freq_get(CK_SYS));
+    printf("\r\nCK_AHB  = %lu", (unsigned long)rcu_clock_freq_get(CK_AHB));
+    printf("\r\nCK_APB1 = %lu", (unsigned long)rcu_clock_freq_get(CK_APB1));
+    printf("\r\nCK_APB2 = %lu\r\n", (unsigned long)rcu_clock_freq_get(CK_APB2));
+    printf("seq,raw,mv,avg_mv\r\n");
+
+    OLED_ShowString(0U, 0U, "GD32A712", 16U, 1U);
+    OLED_ShowString(0U, 16U, "OLED OK", 16U, 1U);
+    OLED_Refresh();
+
     while(1) {
-//        if(SET == gd_eval_key_state_get(KEY_1)) {
-//            delay_1ms(50);
-//            if(SET == gd_eval_key_state_get(KEY_1)) {
-//                gd_eval_led_toggle(LED2);
-//            }
-//            while(SET == gd_eval_key_state_get(KEY_1)) {
-//            }
-//        }
+        bsp_led_write(BSP_LED0, bsp_key_read(BSP_KEY1));
+        bsp_led_write(BSP_LED1, bsp_key_read(BSP_KEY2));
+        bsp_led_write(BSP_LED2, bsp_key_read(BSP_KEY3));
+
+        if(SET == bsp_key_read(BSP_KEY4)) {
+            bsp_motor_forward(5000U);
+        } else {
+            bsp_motor_stop();
+        }
+
+        bsp_adc_calib_poll();
+        delay_1ms(10U);
     }
 }
 
@@ -124,4 +121,3 @@ void led_spark(void)
 //        timingdelaylocal = 0U;
 //    }
 }
-

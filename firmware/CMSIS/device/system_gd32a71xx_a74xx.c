@@ -42,7 +42,7 @@
 //#define __SYSTEM_CLOCK_160M_PLL_IRC48M                   (uint32_t)(160000000)
 
 
-/* use HXTAL(CK_HXTAL = 25M)*/
+/* use HXTAL(CK_HXTAL = 8M)*/
 //#define __SYSTEM_CLOCK_HXTAL                            (uint32_t)(__HXTAL)
 //#define __SYSTEM_CLOCK_100M_PLL_HXTAL                   (uint32_t)(100000000)
 //#define __SYSTEM_CLOCK_120M_PLL_HXTAL                    (uint32_t)(120000000)
@@ -661,11 +661,11 @@ static void system_clock_160M_pll_hxtal(void)
     /* APB1 = AHB/2 */
     RCU_CFG0 |= RCU_APB1_CKAHB_DIV2;
 
-    /* CK_PLL_P(CK_PLL_Q) = (HXTAL /1) * 32 / 5 = 160 MHz */
+    /* CK_PLL_P(CK_PLL_Q) = (HXTAL / 1) * 100 / 5 = 160 MHz */
     RCU_CFG1 &=  ~(RCU_CFG1_PREDV | RCU_CFG1_PLLDIVP | RCU_CFG1_PLLDIVQ);
     RCU_CFG1 |= (RCU_PREDV_DIV1 | (4U<<3U) | (4U<<9U));
     RCU_CFG0 &= ~(RCU_CFG0_PLLMF | RCU_CFG0_PLLMF_7);
-    RCU_CFG0 |= (RCU_PLLSRC_HXTAL | (32U<<17U));
+    RCU_CFG0 |= (RCU_PLLSRC_HXTAL | (100U<<17U));
 
     /* enable PLL */
     RCU_CTL |= RCU_CTL_PLLEN;
