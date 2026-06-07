@@ -7,11 +7,11 @@
 #define BSP_PWM_CH1_GPIO_CLK      RCU_GPIOK
 #define BSP_PWM_CH1_GPIO_PORT     GPIOK
 #define BSP_PWM_CH1_PIN           GPIO_PIN_1
-#define BSP_PWM_CH1_AF            GPIO_AF_13
+#define BSP_PWM_CH1_AF            GPIO_AF_5
 #define BSP_PWM_CH2_GPIO_CLK      RCU_GPIOG
 #define BSP_PWM_CH2_GPIO_PORT     GPIOG
 #define BSP_PWM_CH2_PIN           GPIO_PIN_2
-#define BSP_PWM_CH2_AF            GPIO_AF_13
+#define BSP_PWM_CH2_AF            GPIO_AF_6
 #define BSP_PWM_TIMER_CLOCK_HZ    (SystemCoreClock)
 
 static uint32_t pwm_period = 999U;
