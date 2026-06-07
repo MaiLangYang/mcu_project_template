@@ -1,48 +1,15 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
-OBJ/
+mdk/Objects/
+mdk/Listings/
+mdk/*.uvoptx
+mdk/*.uvguix.*
+mdk/EventRecorderStub.scvd
 
-
-# Other files and folders
-.settings/
-
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
-
-# project
-.vscode
-
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
-
-# Ignore specific folders
-MDK-ARM/STM32L4P5.uvguix.uvguix.Administrator
-MDK-ARM/STM32L4P5.uvguix.uvguix.dlf
-MDK-ARM/STM32L4P5.uvguix.uvguix.T490
-MDK-ARM/JLinkLog.txt
-MDK-ARM/PTW/
-MDK-ARM/STM32L431RB.uvguix.*
-MDK-ARM/STM32L431RB.uvprojx
-MDK-ARM/STM32L431RB/
-
-# Keil build outputs
-MDK-ARM/**/*.o
-MDK-ARM/**/*.d
-MDK-ARM/**/*.crf
-MDK-ARM/**/*.axf
-MDK-ARM/**/*.hex
-MDK-ARM/**/*.htm
-MDK-ARM/**/*.map
-MDK-ARM/**/*.dep
-MDK-ARM/**/*.lnp
-MDK-ARM/**/*.build_log.htm
-MDK-ARM/**/JLinkLog.txt
-MDK-ARM/**/*.Administrator
-MDK-ARM/**/*.uvguix.*
+*.o
+*.d
+*.axf
+*.map
+*.htm
+*.lnp
+*.sct
+*.iex
+*.Bak
